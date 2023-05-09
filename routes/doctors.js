@@ -1,12 +1,10 @@
-const express = require("express")
+const express = require("express");
+const { getDoctors, getDoctorById } = require("../controllers/doctors");
 const router = express.Router();
 
 // https://localhost/doctors   GET POST
-router.get("/", (req, res) => {
-    const data = ["Hola", "doctor"]
-
-    res.send({data})
-})
+router.get("/", getDoctors);
+router.get("/:id", getDoctorById);
 
 
-module.exports = router
+module.exports = router;
