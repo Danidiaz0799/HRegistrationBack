@@ -1,12 +1,14 @@
+const { patientsModels } = require("../models");
+
+
 /**
  * Obtener lista de pacientes
  * @param {*} req 
  * @param {*} res 
  */
-const getPatients = (req, res) => {
-    const data = ["hola", "pacientes"]
-
-    res.send({data})
+const getPatients = async (req, res) => {
+    const data = await patientsModels.find({});
+    res.send({data});
 };
 
 /**
