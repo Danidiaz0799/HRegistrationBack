@@ -3,7 +3,7 @@ const router = express.Router();
 
 // https://localhost/doctors   GET POST
 router.get("/", (req, res) => {
-    const data = ["Hola", "Mundo"]
+    const data = ["Hola", "doctor"]
 
     res.send({data})
 })
