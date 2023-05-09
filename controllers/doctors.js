@@ -23,6 +23,11 @@ const getDoctorById = (req, res) => {}
  * @param {*} req
  * @param {*} res
  */
-const postDoctors = (req, res) => {}
+const postDoctors = async (req, res) => {
+    const { body } = req;
+    console.log(body);
+    const data = await doctorsModels.create(body)
+    res.send({data})
+}
 
 module.exports = { getDoctors, getDoctorById, postDoctors };
