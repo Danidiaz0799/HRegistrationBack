@@ -1,6 +1,6 @@
 const models = {
     doctorsModels: require('./nosql/doctors'),
-    patientsModels: require('./nosql/patient')
+    patientsModels: require('./nosql/patients')
 }
 
 module.exports = models;
