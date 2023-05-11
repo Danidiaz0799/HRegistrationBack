@@ -5,7 +5,6 @@ const { doctorsModels } = require('../models')
  * @param {*} req
  * @param {*} res
  */
-
 const getDoctors = async (req, res) => {
     const data = await doctorsModels.find({});
     res.send({data})
@@ -23,11 +22,15 @@ const getDoctorById = (req, res) => {}
  * @param {*} req
  * @param {*} res
  */
-const postDoctors = async (req, res) => {
+const postDoctor = async (req, res) => {
     const { body } = req;
     console.log(body);
     const data = await doctorsModels.create(body)
-    res.send({data})
-}
+    if (data) {
+        res.status(201).json({ message: 'Doctor created successfully', data });
+    } else {
+        res.status(500).json({ message: 'Error creating doctor' });
+    }
+};
 
-module.exports = { getDoctors, getDoctorById, postDoctors };
+module.exports = { getDoctors, getDoctorById, postDoctor };

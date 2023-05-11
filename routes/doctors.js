@@ -1,11 +1,10 @@
 const express = require("express");
-const { getDoctors, getDoctorById, postDoctors } = require("../controllers/doctors");
+const { getDoctors, getDoctorById, postDoctor } = require("../controllers/doctors");
 const router = express.Router();
 
-// https://localhost/doctors   GET POST
+//http://localhost/doctors GET, POST, PUT, DELETE
 router.get("/", getDoctors);
 router.get("/:id", getDoctorById);
-router.post("/", postDoctors);
-
+router.post("/", postDoctor);
 
 module.exports = router;
