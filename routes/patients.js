@@ -1,13 +1,10 @@
 const express = require("express");
+const { getPatients, getPatientById, postPatient } = require("../controllers/patients");
 const router = express.Router();
 
-//https://localhost/patients GET,POST,DELETE,PUT
+//http://localhost/patients GET, POST, PUT, DELETE
+router.get("/", getPatients);
+router.get("/:id", getPatientById);
+router.post("/", postPatient);
 
-router.get("/", (req, res) => {
-    const data = ["hola", "paciente"]
-
-    res.send({data})
-})
-
-
-module.exports = router
+module.exports = router;
