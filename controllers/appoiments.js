@@ -11,11 +11,23 @@ const getAppoiments = async (req, res) => {
 };
 
 /**
- *Obtener cita por Id
+ * Obtener cita por ID
  * @param {*} req
  * @param {*} res
  */
-const getAppoimentById = (req, res) => {}
+const getAppoimentById = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const data = await appoimentsModels.findOne({ identification: id });
+      if (data) {
+        res.status(200).json({ data });
+      } else {
+        res.status(404).json({ message: 'Appointment not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Error retrieving appointment' });
+    }
+  };  
 
 /**
  *Insertar cita

@@ -11,11 +11,23 @@ const getDoctors = async (req, res) => {
 };
 
 /**
- *Obtener doctor por Id
+ * Obtener doctores por especialidad
  * @param {*} req
  * @param {*} res
  */
-const getDoctorById = (req, res) => {}
+const getDoctorsBySpecialty = async (req, res) => {
+    const { specialty } = req.params;
+    try {
+      const doctors = await doctorsModels.find({ specialties: { $in: [specialty] } });
+      if (doctors.length > 0) {
+        res.status(200).json({ data: doctors });
+      } else {
+        res.status(404).json({ message: 'No doctors found for the specified specialty' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Error retrieving doctors' });
+    }
+  };
 
 /**
  *Insertar doctor
@@ -33,4 +45,4 @@ const postDoctor = async (req, res) => {
     }
 };
 
-module.exports = { getDoctors, getDoctorById, postDoctor };
+module.exports = { getDoctors, getDoctorsBySpecialty, postDoctor };
