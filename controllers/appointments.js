@@ -1,12 +1,12 @@
-const { appoimentsModels } = require('../models')
+const { appointmentsModels } = require('../models')
 
 /**
  *Obtener lista de citas
  * @param {*} req
  * @param {*} res
  */
-const getAppoiments = async (req, res) => {
-    const data = await appoimentsModels.find({});
+const getappointments = async (req, res) => {
+    const data = await appointmentsModels.find({});
     res.send({data})
 };
 
@@ -18,7 +18,7 @@ const getAppoiments = async (req, res) => {
 const getAppoimentById = async (req, res) => {
     const { id } = req.params;
     try {
-      const data = await appoimentsModels.findOne({ identification: id });
+      const data = await appointmentsModels.findOne({ identification: id });
       if (data) {
         res.status(200).json({ data });
       } else {
@@ -27,7 +27,7 @@ const getAppoimentById = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving appointment' });
     }
-  };  
+  };
 
 /**
  *Insertar cita
@@ -37,7 +37,7 @@ const getAppoimentById = async (req, res) => {
 const postAppoiment = async (req, res) => {
     const { body } = req;
     console.log(body);
-    const data = await appoimentsModels.create(body)
+    const data = await appointmentsModels.create(body)
     if (data) {
         res.status(201).json({ message: 'Appoiment created successfully', data });
     } else {
@@ -45,4 +45,4 @@ const postAppoiment = async (req, res) => {
     }
 };
 
-module.exports = { getAppoiments, getAppoimentById, postAppoiment };
+module.exports = { getappointments, getAppoimentById, postAppoiment };
