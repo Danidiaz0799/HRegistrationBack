@@ -1,3 +1,3 @@
-# FirstNodeProject
+# HRegistrationBack
 
-App en Node con Express
+BackEnd de HRegistration
