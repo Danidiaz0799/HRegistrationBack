@@ -7,7 +7,7 @@ const { patientsModels } = require("../models");
  */
 const getPatients = async (req, res) => {
     const data = await patientsModels.find({});
-    res.send({data});
+    res.send(data);
 };
 
 /**

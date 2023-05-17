@@ -7,7 +7,7 @@ const { appointmentsModels } = require('../models')
  */
 const getappointments = async (req, res) => {
     const data = await appointmentsModels.find({});
-    res.send({data})
+    res.send(data)
 };
 
 /**
