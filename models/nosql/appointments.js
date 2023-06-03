@@ -12,11 +12,11 @@ const appointmentscheme = new mongoose.Schema(
         },
         patient: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'patients' // Reemplaza 'patients' con el nombre del modelo de pacientes
+            ref: 'patients' 
         },
         doctor: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'doctors' // Reemplaza 'doctors' con el nombre del modelo de doctores
+            ref: 'doctors' 
         }
     },
     {
