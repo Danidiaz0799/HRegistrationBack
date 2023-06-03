@@ -38,25 +38,20 @@ const postAppointment = async (req, res) => {
   const { body } = req;
 
   try {
-    // Obtener datos del doctor por especialidad
     const specialty = body.specialty;
     const doctor = await doctorsModels.findOne({ specialties: { $in: [specialty] } });
 
-    // Verificar si se encontró un doctor con esa especialidad
     if (!doctor) {
       return res.status(404).json({ message: 'No doctor found for the specified specialty' });
     }
 
-    // Obtener datos del paciente por identificación
     const identification = body.identification;
     const patient = await patientsModels.findOne({ identification });
 
-    // Verificar si se encontró un paciente con esa identificación
     if (!patient) {
       return res.status(404).json({ message: 'Patient not found' });
     }
 
-    // Crear la cita con los datos del doctor y del paciente
     const appointmentData = {
       identification: patient.identification,
       specialties: doctor.specialties,
