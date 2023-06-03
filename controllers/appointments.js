@@ -37,35 +37,45 @@ const getAppointmentById = async (req, res) => {
 const postAppointment = async (req, res) => {
   const { body } = req;
 
-  // Obtener los datos del doctor por especialidad
-  const { specialty } = body;
   try {
+    // Obtener datos del doctor por especialidad
+    const specialty = body.specialty;
     const doctor = await doctorsModels.findOne({ specialties: { $in: [specialty] } });
+
+    // Verificar si se encontró un doctor con esa especialidad
     if (!doctor) {
-      return res.status(404).json({ message: 'Doctor not found for the specified specialty' });
+      return res.status(404).json({ message: 'No doctor found for the specified specialty' });
     }
 
-    // Obtener los datos del paciente por identificación
-    const { identification } = body;
+    // Obtener datos del paciente por identificación
+    const identification = body.identification;
     const patient = await patientsModels.findOne({ identification });
+
+    // Verificar si se encontró un paciente con esa identificación
     if (!patient) {
       return res.status(404).json({ message: 'Patient not found' });
     }
 
-    // Combinar los datos del doctor, paciente y los datos de la cita en un nuevo objeto
+    // Crear la cita con los datos del doctor y del paciente
     const appointmentData = {
-      doctor,
-      patient,
-      ...body,
+      identification: patient.identification,
+      specialties: doctor.specialties,
+      doctor: doctor,
+      patient: patient
     };
 
-    // Crear la nueva cita
     const data = await appointmentsModels.create(appointmentData);
-    res.status(201).json({ message: 'Appointment created successfully', data });
+
+    if (data) {
+      res.status(201).json({ message: 'Appointment created successfully', data });
+    } else {
+      res.status(500).json({ message: 'Error creating Appointment' });
+    }
   } catch (error) {
-    res.status(500).json({ message: 'Error creating appointment' });
+    res.status(500).json({ message: 'Error creating Appointment' });
   }
 };
+
 
 /**
  * Actualizar cita
