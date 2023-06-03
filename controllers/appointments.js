@@ -6,9 +6,52 @@ const { doctorsModels, patientsModels, appointmentsModels } = require('../models
  * @param {*} res
  */
 const getappointments = async (req, res) => {
-  const data = await appointmentsModels.find({});
-  res.send(data)
+  try {
+    const appointments = await appointmentsModels.find({})
+      .populate('patient', '_id name lastname identification')
+      .populate('doctor', '_id name lastName specialties consultingRoom');
+
+    const formattedAppointments = appointments.map((appointment) => {
+      const { identification, specialties, patient, doctor, _id, createdAt, updatedAt } = appointment;
+
+      return {
+        identification,
+        specialties,
+        patient: {
+          _id: patient._id,
+          name: patient.name,
+          lastname: patient.lastname,
+          identification: patient.identification,
+        },
+        doctor: {
+          _id: doctor._id,
+          name: doctor.name,
+          lastName: doctor.lastName,
+          specialties: doctor.specialties,
+          consultingRoom: doctor.consultingRoom,
+        },
+        _id,
+        createdAt,
+        updatedAt,
+      };
+    });
+
+    res.json({ message: 'Appointments retrieved successfully', data: formattedAppointments });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving appointments' });
+  }
 };
+
+module.exports = {
+  getappointments,
+};
+
+
+module.exports = {
+  getappointments,
+};
+
 
 /**
  * Obtener cita por id
